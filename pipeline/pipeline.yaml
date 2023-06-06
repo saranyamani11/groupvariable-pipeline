@@ -1,0 +1,10 @@
+
+trigger:
+  branches:
+    include:
+      - main
+
+stages:
+- template: ../templates/plan.yaml
+- template: ../templates/apply.yaml
+  

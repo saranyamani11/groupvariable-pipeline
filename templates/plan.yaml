@@ -1,0 +1,20 @@
+stages:
+- stage: DevPlan
+  variables:
+  - group: dev-group-vars
+  jobs:
+  - job: TerraformPlan
+    steps:
+    - script: 'terraform version'
+      displayName: 'terraform version'
+      
+    - script: 'terraform -chdir=main/ init -input=false'
+      displayName: 'Init'
+      
+
+    - script: 'terraform -chdir=main/ validate'
+      displayName: 'Validate'
+
+    - script: 'terraform -chdir=main/ plan -var="ARM_CLIENT_ID=$(ARM_CLIENT_ID)" -var="ARM_CLIENT_SECRET=$(ARM_CLIENT_SECRET)" -var="ARM_TENANT_ID=$(ARM_TENANT_ID)"  -var="ARM_SUBSCRIPTION_ID=$(ARM_SUBSCRIPTION_ID)"'
+      displayName: 'Plan'
+     
